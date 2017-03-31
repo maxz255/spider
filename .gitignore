@@ -1,5 +1,6 @@
 .idea/
 data/
+cached/
 config.py
 test.py
 .txt
