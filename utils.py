@@ -7,11 +7,9 @@ def log(*args, **kwargs):
     fmt = '%Y-%m-%d %H:%M:%S'
     value = time.localtime(int(time.time()))
     dt = time.strftime(fmt, value)
-    if args is not ():
-        args = list(args)
-        args[0] = 'Log: ' + args[0]
+
     with open('log.log', 'a', encoding='utf-8') as f:
-        print(dt, caller_info, *args, file=f, **kwargs)
+        print(dt, caller_info, 'Log:', *args, file=f, **kwargs)
 
 
 def caller():
