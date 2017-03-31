@@ -10,12 +10,12 @@ class Movie(Mixin):
     def __init__(self):
         self.href = ''
         self.subject_id = ''
+        self.cover_url = ''
         self.name = ''
         self.director = ''
         self.lead_act = ''
         self.rating_num = ''
         self.quote = ''
-        self.cover_url = ''
         self.ranking = ''
         self.reviews = ''
 
