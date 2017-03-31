@@ -1,6 +1,9 @@
 .idea/
 data/
 config.py
+test.py
+.txt
+.log
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
