@@ -9,7 +9,7 @@ def log(*args, **kwargs):
     dt = time.strftime(fmt, value)
 
     with open('log.log', 'a', encoding='utf-8') as f:
-        print(dt, caller_info, 'Log:', *args, file=f, **kwargs)
+        print(dt, caller_info, '\nLog:', *args, file=f, **kwargs)
 
 
 def caller():
