@@ -1,7 +1,7 @@
 import requests
 import os
 from utils import log
-from models import Movie
+from models.movie import Movie
 from pyquery import PyQuery as pq
 import string
 import random
