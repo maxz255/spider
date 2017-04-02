@@ -1,7 +1,8 @@
-from models import Mixin
+from models import Model
 
 
-class Movie(Mixin):
+class Movie(Model):
+    collection_name = 'top250movie'
 
     def __init__(self):
         self.href = ''

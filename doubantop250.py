@@ -1,10 +1,18 @@
 import requests
 import os
+import string
+import random
+import pymongo
 from utils import log
 from models.movie import Movie
 from pyquery import PyQuery as pq
-import string
-import random
+
+
+db_url = "mongodb://localhost:27017"
+client = pymongo.MongoClient(db_url)
+mongodb_name = 'spider'
+db = client[mongodb_name]
+log('数据库连接成功', db)
 
 
 def movies_from_html(page):
@@ -29,6 +37,8 @@ def movie_from_div(div):
     m.quote = e('.inq').text()
     m.ranking = e('.pic').find('em').text()
     m.reviews = e('.star').find('span')[-1].text
+
+    m.save(db)
 
     return m
 
@@ -76,7 +86,7 @@ def main():
         url = 'https://movie.douban.com/top250?start={}'.format(i)
         page = cached_page(url)
         movies = movies_from_html(page)
-        log(movies)
+        # log(movies)
 
 if __name__ == '__main__':
     main()
