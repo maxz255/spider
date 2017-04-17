@@ -5,7 +5,7 @@ config.py
 test.py
 .txt
 .log
-
+test/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
