@@ -1,6 +1,7 @@
 .idea/
 data/
 cached/
+cached_zhizhizhi/
 config.py
 test.py
 .txt
