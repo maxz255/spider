@@ -96,5 +96,6 @@ def main():
     movies = movies_from_html(page)
     log(movies)
 
+
 if __name__ == '__main__':
     main()
