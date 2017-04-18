@@ -1,4 +1,4 @@
-# 爬虫
+# spider
 
 对于豆瓣和imdb，使用了requests，抓取值值值使用selenium
 
