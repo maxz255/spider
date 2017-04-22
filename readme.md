@@ -1,6 +1,6 @@
 # spider
 
-对于豆瓣和imdb，使用了requests，抓取值值值使用selenium
+基础库: requests, pyquery, selenium
 
 数据库：mongodb
 
@@ -10,3 +10,5 @@
 [imdb](https://github.com/siyaoyao/spider/blob/master/imdb250.py)
 
 [值值值](https://github.com/siyaoyao/spider/blob/master/simulate_browser.py)
+
+[时光网](https://github.com/siyaoyao/spider/blob/master/mtimetop100.py)
