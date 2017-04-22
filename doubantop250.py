@@ -1,9 +1,8 @@
-import requests
-import os
 import string
 import random
 import pymongo
 from utils import log
+from utils import cached_page
 from models.movie import Movie
 from pyquery import PyQuery as pq
 
@@ -62,29 +61,11 @@ def make_header():
     return headers
 
 
-def cached_page(url):
-    folder = 'cached'
-    filename = url.split('=')[-1] + '.html'
-    path = os.path.join(folder, filename)
-    os.makedirs(folder, exist_ok=True)
-
-    if os.path.exists(path):
-        with open(path, 'rb') as f:
-            page = f.read()
-            return page
-    else:
-        header = make_header()
-        response = requests.get(url, header)
-        page = response.content
-        with open(path, 'wb') as f:
-            f.write(page)
-        return page
-
-
 def main():
     for i in range(0, 250, 25):
         url = 'https://movie.douban.com/top250?start={}'.format(i)
-        page = cached_page(url)
+        filename = url.split('=')[-1] + '.html'
+        page = cached_page(url, filename)
         movies = movies_from_html(page)
         # log(movies)
 

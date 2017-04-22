@@ -2,7 +2,7 @@ from models import Model
 
 
 class Movie(Model):
-    collection_name = 'top250movie'
+    collection_name = 'top250douban'
 
     def __init__(self):
         self.href = ''
