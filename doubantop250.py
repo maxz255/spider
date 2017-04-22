@@ -3,7 +3,7 @@ import random
 import pymongo
 from utils import log
 from utils import cached_page
-from models.movie import Movie
+from models.movie import MovieDouban
 from pyquery import PyQuery as pq
 
 
@@ -26,9 +26,9 @@ def movies_from_html(page):
 def movie_from_div(div):
     e = pq(div)
 
-    m = Movie()
+    m = MovieDouban()
     m.href = e('a').attr('href')
-    m.subject_id = m.href.split('/')[-2]
+    m.id = m.href.split('/')[-2]
     m.cover_url = e('img').attr('src')
     m.name = e('.title').text()
     # m.director = ''
