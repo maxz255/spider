@@ -12,6 +12,7 @@ class MovieBase(Model):
         self.name = ''
         self.director = ''
         self.stars = ''
+        self.type = ''
         self.rating_num = ''
         self.ranking = ''
         self.reviews = ''
