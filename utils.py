@@ -23,8 +23,8 @@ def cached_page(url, filename, folder='cached'):
             page = f.read()
             return page
     else:
-        header = make_header()
-        response = requests.get(url, header)
+        headers = make_header()
+        response = requests.get(url, headers)
         page = response.content
         with open(path, 'wb') as f:
             f.write(page)
