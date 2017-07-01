@@ -12,3 +12,5 @@
 [值值值](https://github.com/siyaoyao/spider/blob/master/simulate_browser.py)
 
 [时光网](https://github.com/siyaoyao/spider/blob/master/mtimetop100.py)
+
+![豆瓣电影数据可视化](https://raw.githubusercontent.com/siyaoyao/spider/master/movie.gif)
