@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- style="width:100%;height:100%;" -->
+
+<head>
+    <meta charset="UTF-8">
+    <title>2016年最受欢迎的电影分析</title>
+    <style media="screen">
+        #main {
+            width: 1366px;
+            height: 768px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="main"></div>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/echarts/3.5.4/echarts.js"></script>
+    <script type="text/javascript">
+        var log = console.log.bind(console)
+        var data = [
+            ['疯狂动物城', 9.2, 453187.0, 176265.0, 495019.0, 2823.0, 15.3],
+            ['血战钢锯岭', 8.7, 259169.0, 109376.0, 276357.0, 3534.0, 4.3],
+            ['你的名字。', 8.5, 354976.0, 158784.0, 377895.0, 4818.0, 5.8],
+            ['爱乐之城', 8.4, 284640.0, 142898.0, 302194.0, 6792.0, 2.5],
+            ['驴得水', 8.3, 263796.0, 113642.0, 281813.0, 5125.0, 1.7],
+            ['湄公河行动', 8.0, 316802.0, 130797.0, 340003.0, 2074.0, 11.8],
+            ['神奇动物在哪里', 7.9, 231725.0, 97503.0, 250620.0, 1422.0, 5.9],
+            ['美国队长3', 7.7, 202236.0, 83713.0, 223717.0, 1681.0, 12.5],
+            ['奇异博士', 7.7, 218753.0, 93451.0, 237009.0, 1123.0, 7.5],
+            ['七月与安生', 7.6, 229847.0, 102708.0, 250595.0, 4293.0, 1.7],
+            ['美人鱼', 6.8, 380107.0, 174092.0, 415346.0, 5497.0, 33.9],
+            ['大鱼海棠', 6.5, 213705.0, 117681.0, 228520.0, 8691.0, 5.7],
+            ['长城', 4.9, 206021.0, 123249.0, 212730.0, 5516.0, 11.7]
+        ]
+        var parseData = function(data) {
+            // 电影名，评分，评分人数，评论数, 看过数，影评数, 票房
+            var d = {
+                '电影': [],
+                '评分': [],
+                '评分人数': [],
+                '评论数': [],
+                '看过数': [],
+                '影评数': [],
+                '票房': [],
+            }
+            for (var i = 0; i < data.length; i++) {
+                var e = data[i]
+                d['电影'].push(e[0])
+                d['评分'].push(e[1])
+                d['评分人数'].push(fmt_number((e[2])))
+                d['评论数'].push(fmt_number((e[3])))
+                d['看过数'].push(fmt_number((e[4])))
+                d['影评数'].push(e[5])
+                d['票房'].push(e[6])
+            }
+            return d
+        }
+
+        var fmt_number = function(number) {
+            return (number / 10000).toFixed(1)
+        }
+
+        var __main = function() {
+            var d = parseData(data)
+            log(d)
+            var names = d['电影']
+            var ratings = d['评分']
+            var rating_counts = d['评分人数']
+            var comments_counts = d['评论数']
+            var collect_count = d['看过数']
+            var reviews_count = d['影评数']
+            var boxoffices = d['票房']
+
+            var myChart = echarts.init(document.getElementById('main'));
+
+            var colors = ['#5793f3', '#d14a61', '#675bba'];
+            // 填入数据
+            myChart.setOption({
+                title: {
+                    text: '2016年最受欢迎的电影分析',
+                    textStyle: {
+                        fontSize: 28,
+                    },
+                    x: 'center',
+                },
+                textStyle: {
+                    fontSize: 15,
+                },
+
+                tooltip: {
+                    trigger: 'axis'
+                },
+                toolbox: {
+                    feature: {
+                        dataView: {
+                            show: true,
+                            readOnly: false
+                        },
+                        restore: {
+                            show: true
+                        },
+                        saveAsImage: {
+                            show: true
+                        }
+                    }
+                },
+                grid: {
+
+                    containLabel: true
+                },
+                legend: {
+                    // 电影名，评分，评分人数，评论数, 看过数，影评数, 票房
+                    data: ['评分', '评分人数',
+                        '评论数', '看过数', '影评数', '票房'
+                    ],
+                    left: 'left',
+                },
+                xAxis: [{
+                    type: 'category',
+                    boundaryGap: true,
+                    axisTick: {
+                        alignWithLabel: true
+                    },
+                    data: names,
+                    axisLabel: {
+                        interval: 0,
+                        rotate: 45,
+                        textStyle: {
+                            fontSize: 20,
+                        },
+                    }
+                }],
+                yAxis: [{
+                        type: 'value',
+                        name: '评分人数',
+                        min: 20,
+                        max: 50,
+                        position: 'left',
+                        offset: 80,
+                        axisLabel: {
+                            formatter: '{value}万人',
+                            textStyle: {
+                                fontSize: 18,
+                            },
+                        },
+                    },
+                    {
+                        type: 'value',
+                        name: '评分',
+                        min: 0,
+                        max: 10,
+                        position: 'left',
+                        offset: 150,
+                        axisLabel: {
+                            formatter: '{value}',
+                            textStyle: {
+                                fontSize: 18,
+                            },
+                        }
+                    }, {
+                        type: 'value',
+                        name: '票房',
+                        min: 0,
+                        max: 40,
+                        position: 'left',
+                        axisLabel: {
+                            formatter: '{value} 亿',
+                            textStyle: {
+                                fontSize: 18,
+                            },
+                        }
+                    }, {
+                        type: 'value',
+                        name: '影评数',
+                        min: 0,
+                        max: 10000,
+                        position: 'right',
+                        axisLabel: {
+                            formatter: '{value}篇',
+                            textStyle: {
+                                fontSize: 18,
+                            },
+                        }
+                    }, {
+                        type: 'value',
+                        name: '评论数',
+                        min: 6,
+                        max: 18,
+                        position: 'right',
+                        offset: 90,
+                        axisLabel: {
+                            formatter: '{value}万个',
+                            textStyle: {
+                                fontSize: 18,
+                            },
+                        }
+                    }, {
+                        type: 'value',
+                        name: '看过数',
+                        min: 20,
+                        max: 60,
+                        position: 'right',
+                        offset: 170,
+                        axisLabel: {
+                            formatter: '{value}万',
+                            textStyle: {
+                                fontSize: 18,
+                            },
+                        }
+                    }
+                ],
+                series: [{
+                        name: '评分',
+                        type: 'line',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top',
+                            }
+                        },
+                        yAxisIndex: 1,
+                        lineStyle: {
+                            normal: {
+                                width: 3,
+                                // color: colors[0],
+                                label: {
+                                    show: true
+                                },
+                                shadowColor: 'rgba(0,0,0,0.4)',
+                                shadowBlur: 10,
+                                shadowOffsetY: 10
+                            }
+                        },
+                        data: ratings,
+                    }, {
+                        name: '票房',
+                        type: 'bar',
+                        yAxisIndex: 2,
+
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top'
+                            }
+                        },
+                        // #5793f3
+                        itemStyle: {
+                            normal: {
+                                color: colors[0],
+                            }
+                        },
+                        data: boxoffices,
+                    }, {
+                        name: '评分人数',
+                        type: 'line',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top',
+                            }
+                        },
+                        yAxisIndex: 0,
+                        lineStyle: {
+                            normal: {
+                                width: 3,
+                                // color: colors[0],
+                                label: {
+                                    show: true
+                                },
+                                shadowColor: 'rgba(0,0,0,0.4)',
+                                shadowBlur: 10,
+                                shadowOffsetY: 10
+                            }
+                        },
+                        data: rating_counts,
+                    }, {
+                        name: '影评数',
+                        type: 'line',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top',
+                            }
+                        },
+                        yAxisIndex: 3,
+                        lineStyle: {
+                            normal: {
+                                width: 3,
+                                // color: colors[0],
+                                label: {
+                                    show: true
+                                },
+                                shadowColor: 'rgba(0,0,0,0.4)',
+                                shadowBlur: 10,
+                                shadowOffsetY: 10
+                            }
+                        },
+                        data: reviews_count,
+                    }, {
+                        name: '评论数',
+                        type: 'line',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top',
+                            }
+                        },
+                        yAxisIndex: 4,
+                        lineStyle: {
+                            normal: {
+                                width: 3,
+                                // color: colors[0],
+                                label: {
+                                    show: true
+                                },
+                                shadowColor: 'rgba(0,0,0,0.4)',
+                                shadowBlur: 10,
+                                shadowOffsetY: 10
+                            }
+                        },
+                        data: comments_counts,
+                    }, {
+                        name: '看过数',
+                        type: 'line',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top',
+                            }
+                        },
+                        yAxisIndex: 5,
+                        lineStyle: {
+                            normal: {
+                                width: 3,
+
+                                label: {
+                                    show: true
+                                },
+                                shadowColor: 'rgba(0,0,0,0.4)',
+                                shadowBlur: 10,
+                                shadowOffsetY: 10
+                            }
+                        },
+                        data: collect_count,
+                    },
+
+
+
+                ]
+            })
+        }
+
+        __main()
+    </script>
+</body>
+
+</html>
